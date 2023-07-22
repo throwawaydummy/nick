@@ -5,10 +5,10 @@ fetch("likes.txt")
     let i = 0;
 
     lines.forEach((line) => {
-      if (i < 0) {
-        return;
-      }
-      i++;
+      // if (i < 0) {
+      //   return;
+      // }
+      // i++;
       if (line.startsWith("Video")) {
         let splitLine = line.split("/");
         let videoCode = splitLine[splitLine.length - 2];
@@ -30,5 +30,4 @@ fetch("likes.txt")
       }
     });
     // do something with "text"
-  })
-  .catch((e) => console.error(e));
+  });
