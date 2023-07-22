@@ -32,8 +32,3 @@ fetch("likes.txt")
     // do something with "text"
   })
   .catch((e) => console.error(e));
-Date: 2022-09-10 23:50:54
-Video Link: https://www.tiktokv.com/share/video/7140836423267028270/
-
-Date: 2022-09-10 23:26:24
-Video Link: https://www.tiktokv.com/share/video/7137844136069319982/
