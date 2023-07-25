@@ -1,0 +1,28 @@
+.pagination-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.pagination-number,
+.pagination-button {
+  font-size: 1.1rem;
+
+  border: none;
+  margin: 0.25rem 0.25rem;
+
+  height: 2.5rem;
+  width: 2.5rem;
+  border-radius: 0.2rem;
+}
+
+.pagination-number:hover,
+.pagination-button:not(.disabled):hover {
+  background: #f5a8a8;
+  cursor: pointer;
+}
+
+.pagination-number.active {
+  color: #fff;
+  background: #0085b6;
+}

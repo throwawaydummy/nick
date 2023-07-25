@@ -4,6 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <script src="script.js" defer></script>
+    <link rel="stylesheet" href="styles.css" />
     <dummy id="template">
       <blockquote
         class="tiktok-embed"
@@ -19,5 +20,22 @@
 
     <title>Document</title>
   </head>
-  <body></body>
+  <body>
+    <ul id="paginated-list">
+      <li>Item 1</li>
+      <li>Item 2</li>
+      <li>Item 3</li>
+      <li>Item 1</li>
+      <li>Item 2</li>
+      <li>Item 3</li>
+      <li>Item 1</li>
+      <li>Item 2</li>
+      <li>Item 3</li>
+    </ul>
+    <nav class="pagination-container">
+      <button class="pagination-button" id="previous-button">&lt;</button>
+      <div id="pagination-numbers"></div>
+      <button class="pagination-button" id="next-button">&gt;</button>
+    </nav>
+  </body>
 </html>
