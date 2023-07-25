@@ -1,3 +1,6 @@
+//determine necessary parts of tiktok embed
+//
+
 let videoCodes = [];
 fetch("likes.txt")
   .then((res) => res.text())
@@ -13,27 +16,28 @@ fetch("likes.txt")
       if (line.startsWith("Video")) {
         let splitLine = line.split("/");
         let videoCode = splitLine[splitLine.length - 2];
-        // console.log(videoCode);
         videoCodes.push(videoCode);
-
-        // let template = document.getElementById("template");
-        // let clone = template.cloneNode(true);
-        // let cloneChild = clone.children[0];
-        // cloneChild.setAttribute("data-video-id", videoCode);
-
-        // let cite = cloneChild.getAttribute("cite");
-        // citeList = cite.split("/");
-        // citeList[citeList.length - 1] = videoCode;
-
-        // let modifiedCite = citeList.join("/");
-        // cloneChild.setAttribute("cite", modifiedCite);
-        // console.log(modifiedCite);
-
-        // document.getElementById("template2").appendChild(clone);
       }
     });
     // do something with "text"
   });
+
+const createTiktok = (videoCode) => {
+  let template = document.getElementById("template");
+  let clone = template.cloneNode(true);
+  clone.classList.remove("hidden");
+  let cloneChild = clone.children[0];
+  cloneChild.setAttribute("data-video-id", videoCode);
+
+  let cite = cloneChild.getAttribute("cite");
+  citeList = cite.split("/");
+  citeList[citeList.length - 1] = videoCode;
+  let modifiedCite = citeList.join("/");
+  cloneChild.setAttribute("cite", modifiedCite);
+  console.log(modifiedCite);
+
+  return clone;
+};
 
 const paginationNumbers = document.getElementById("pagination-numbers");
 const paginatedList = document.getElementById("paginated-list");
@@ -61,7 +65,7 @@ const getPaginationNumbers = () => {
 };
 
 const setCurrentPage = (pageNum) => {
-  if (currentPage === pageNum || pageNum > pageCount || pageNum < 1) {
+  if (pageNum > pageCount || pageNum < 1) {
     return;
   }
 
@@ -97,7 +101,8 @@ window.addEventListener("load", () => {
     setCurrentPage(currentPage + 1);
   });
 
-  document.querySelectorAll("pagination-number").forEach((button) => {
+  document.querySelectorAll(".pagination-number").forEach((button) => {
+    console.log("check");
     const pageIndex = Number(button.getAttribute("page-index"));
 
     if (pageIndex) {
