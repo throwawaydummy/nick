@@ -28,5 +28,10 @@
 }
 
 .hidden {
-  visibility: hidden;
+  display: none;
+}
+
+.tiktok {
+  background-color: red;
+  min-height: 100px;
 }

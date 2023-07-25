@@ -2,39 +2,48 @@
 //
 
 let videoCodes = [];
-fetch("likes.txt")
-  .then((res) => res.text())
-  .then((text) => {
-    let lines = text.split("\n");
-    let i = 0;
 
-    lines.forEach((line) => {
-      // if (i < 0) {
-      //   return;
-      // }
-      // i++;
-      if (line.startsWith("Video")) {
-        let splitLine = line.split("/");
-        let videoCode = splitLine[splitLine.length - 2];
-        videoCodes.push(videoCode);
-      }
-    });
-    // do something with "text"
-  });
+const request = new XMLHttpRequest();
+request.open("GET", "likes.txt", false); // `false` makes the request synchronous
+request.send(null);
+
+let lines = request.responseText.split("\n");
+let i = 0;
+lines.forEach((line) => {
+  if (line.startsWith("Video")) {
+    let splitLine = line.split("/");
+    let videoCode = splitLine[splitLine.length - 2];
+    videoCodes.push(videoCode);
+  }
+});
 
 const createTiktok = (videoCode) => {
+  // <dummy id="template" class="hidden tiktok">
+  // <blockquote
+  //   class="tiktok-embed"
+  //   cite="https://www.tiktok.com/share/video/7137844136069319982"
+  //   data-video-id="7137844136069319982"
+  //   style="max-width: 605px; min-width: 325px"
+  // >
+  //   <section></section>
+  // </blockquote>
+  // <script async src="https://www.tiktok.com/embed.js"></script>
+  // </dummy>
+
   let template = document.getElementById("template");
   let clone = template.cloneNode(true);
   clone.classList.remove("hidden");
   let cloneChild = clone.children[0];
   cloneChild.setAttribute("data-video-id", videoCode);
+  cloneChild.removeAttribute("id");
 
   let cite = cloneChild.getAttribute("cite");
   citeList = cite.split("/");
   citeList[citeList.length - 1] = videoCode;
   let modifiedCite = citeList.join("/");
   cloneChild.setAttribute("cite", modifiedCite);
-  console.log(modifiedCite);
+
+  console.log(videoCode + "rat");
 
   return clone;
 };
@@ -45,8 +54,9 @@ const listItems = paginatedList.querySelectorAll("li");
 const nextButton = document.getElementById("next-button");
 const previousButton = document.getElementById("previous-button");
 
-const paginationLimit = 1;
-let pageCount = Math.ceil(listItems.length / paginationLimit);
+const paginationLimit = 10;
+let pageCount = Math.ceil(videoCodes.length / paginationLimit);
+
 let currentPage = 1;
 
 const appendPageNumber = (index) => {
@@ -68,18 +78,27 @@ const setCurrentPage = (pageNum) => {
   if (pageNum > pageCount || pageNum < 1) {
     return;
   }
+  currentPage = pageNum;
 
   // get element container
   // clear its children
   // create embeds and add  as children in loop
 
-  currentPage = pageNum;
   handlePageStatus();
   handleActivePageNumber();
   const previousRange = (pageNum - 1) * paginationLimit;
   const currentRange = pageNum * paginationLimit;
+  while (paginatedList.firstChild) {
+    paginatedList.removeChild(paginatedList.firstChild);
+  }
 
   videoCodes.forEach((item, index) => {
+    if (
+      index > (currentPage - 1) * paginationLimit &&
+      index < currentPage * paginationLimit
+    ) {
+      paginatedList.appendChild(createTiktok(item));
+    }
     // item.classList.add("hidden");
     // if (index >= previousRange && index < currentRange) {
     //   item.classList.remove("hidden");
@@ -102,7 +121,6 @@ window.addEventListener("load", () => {
   });
 
   document.querySelectorAll(".pagination-number").forEach((button) => {
-    console.log("check");
     const pageIndex = Number(button.getAttribute("page-index"));
 
     if (pageIndex) {
