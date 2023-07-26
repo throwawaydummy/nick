@@ -65,8 +65,10 @@ const paginatedList = document.getElementById("paginated-list");
 const listItems = paginatedList.querySelectorAll("li");
 const nextButton = document.getElementById("next-button");
 const previousButton = document.getElementById("previous-button");
+const nextButton2 = document.getElementById("next-button2");
+const previousButton2 = document.getElementById("previous-button2");
 
-const paginationLimit = 10;
+const paginationLimit = 11;
 let pageCount = Math.ceil(videoCodes.length / paginationLimit);
 
 let currentPage = 1;
@@ -125,6 +127,14 @@ window.addEventListener("load", () => {
   });
 
   nextButton.addEventListener("click", () => {
+    setCurrentPage(currentPage + 1);
+  });
+
+  previousButton2.addEventListener("click", () => {
+    setCurrentPage(currentPage - 1);
+  });
+
+  nextButton2.addEventListener("click", () => {
     setCurrentPage(currentPage + 1);
   });
 

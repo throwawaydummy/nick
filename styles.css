@@ -34,9 +34,21 @@
 .tiktok {
   border: 0px;
   height: 760px;
+  min-width: 330px;
+  max-width: 400px;
+
+  padding: 0px;
 }
 
-.paginatedList {
+#paginated-list {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+#previous-next-container,
+#previous-next-container2 {
   display: flex;
   justify-content: center;
+  align-content: center;
 }
