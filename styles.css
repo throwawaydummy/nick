@@ -67,3 +67,10 @@ body {
 iframe {
   overflow: hidden;
 }
+#pagination-numbers {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-left: 10px;
+  margin-right: 10px;
+}
