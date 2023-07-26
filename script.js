@@ -200,3 +200,21 @@ document.addEventListener("touchend", (e) => {
   touchendX = e.changedTouches[0].screenX;
   checkDirection();
 });
+
+document.onkeydown = function (e) {
+  switch (e.keyCode) {
+    case 37:
+      setCurrentPage(currentPage - 1);
+      break;
+    case 38:
+      str = "Up Key pressed!";
+      break;
+    case 39:
+      setCurrentPage(currentPage + 1);
+
+      break;
+    case 40:
+      str = "Down Key pressed!";
+      break;
+  }
+};

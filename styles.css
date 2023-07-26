@@ -1,3 +1,6 @@
+body {
+  margin: 0px;
+}
 .pagination-container {
   display: flex;
   align-items: center;
@@ -33,9 +36,9 @@
 
 .tiktok {
   border: 0px;
-  height: 760px;
-  min-width: 330px;
-  max-width: 400px;
+  height: 765px;
+  min-width: 310px;
+  max-width: 350px;
   overflow: hidden;
   padding: 0px;
 }
@@ -48,7 +51,19 @@
 
 #previous-next-container,
 #previous-next-container2 {
+  gap: 20px;
   display: flex;
   justify-content: center;
   align-content: center;
+}
+
+.niktok {
+  display: flex;
+  justify-content: center;
+  background-color: black;
+  margin-bottom: 30px;
+}
+
+iframe {
+  overflow: hidden;
 }
