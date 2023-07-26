@@ -32,6 +32,11 @@
 }
 
 .tiktok {
-  background-color: red;
-  min-height: 100px;
+  border: 0px;
+  height: 760px;
+}
+
+.paginatedList {
+  display: flex;
+  justify-content: center;
 }

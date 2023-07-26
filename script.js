@@ -30,22 +30,34 @@ const createTiktok = (videoCode) => {
   // <script async src="https://www.tiktok.com/embed.js"></script>
   // </dummy>
 
-  let template = document.getElementById("template");
-  let clone = template.cloneNode(true);
-  clone.classList.remove("hidden");
-  let cloneChild = clone.children[0];
-  cloneChild.setAttribute("data-video-id", videoCode);
-  cloneChild.removeAttribute("id");
+  // let template = document.getElementById("template");
+  // let clone = template.cloneNode(true);
+  // clone.classList.remove("hidden");
+  // let cloneChild = clone.children[0];
+  // cloneChild.setAttribute("data-video-id", videoCode);
+  // clone.setAttribute("id", videoCode);
 
-  let cite = cloneChild.getAttribute("cite");
-  citeList = cite.split("/");
-  citeList[citeList.length - 1] = videoCode;
-  let modifiedCite = citeList.join("/");
-  cloneChild.setAttribute("cite", modifiedCite);
+  // let cite = cloneChild.getAttribute("cite");
+  // citeList = cite.split("/");
+  // citeList[citeList.length - 1] = videoCode;
+  // let modifiedCite = citeList.join("/");
+  // cloneChild.setAttribute("cite", modifiedCite);
+  // let src = cloneChild.firstChild;
+  // console.log(src);
 
-  console.log(videoCode + "rat");
+  const tikTokFrame = document.createElement("iframe");
+  tikTokFrame.classList = "tiktok";
+  tikTokFrame.width = "100%";
 
-  return clone;
+  tikTokFrame.src = "https://www.tiktok.com/embed/v2/" + videoCode;
+
+  function resizeIframe(iframe) {
+    iframe.height = iframe.contentWindow.document.body.scrollHeight + "px";
+    console.log("called");
+  }
+  tikTokFrame.onload = resizeIframe;
+
+  return tikTokFrame;
 };
 
 const paginationNumbers = document.getElementById("pagination-numbers");
@@ -99,10 +111,6 @@ const setCurrentPage = (pageNum) => {
     ) {
       paginatedList.appendChild(createTiktok(item));
     }
-    // item.classList.add("hidden");
-    // if (index >= previousRange && index < currentRange) {
-    //   item.classList.remove("hidden");
-    // }
   });
 };
 
@@ -164,3 +172,20 @@ const handlePageStatus = () => {
     enableButton(nextButton);
   }
 };
+
+let touchstartX = 0;
+let touchendX = 0;
+
+function checkDirection() {
+  if (touchendX < touchstartX) setCurrentPage(currentPage + 1);
+  if (touchendX > touchstartX) setCurrentPage(currentPage - 1);
+}
+
+document.addEventListener("touchstart", (e) => {
+  touchstartX = e.changedTouches[0].screenX;
+});
+
+document.addEventListener("touchend", (e) => {
+  touchendX = e.changedTouches[0].screenX;
+  checkDirection();
+});
