@@ -92,6 +92,7 @@ const setCurrentPage = (pageNum) => {
   if (pageNum > pageCount || pageNum < 1) {
     return;
   }
+  window.scrollTo({ top: 0, behavior: "smooth" });
   currentPage = pageNum;
 
   // get element container
