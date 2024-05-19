@@ -73,6 +73,37 @@ let pageCount = Math.ceil(videoCodes.length / paginationLimit);
 
 let currentPage = 1;
 
+const createPageSelector = () => {
+  const form = document.createElement("form");
+  form.classList.add("pageSelector");
+  const submitButton = document.createElement("button");
+
+  submitButton.innerText = "Go to Page";
+
+  const pageSelector = document.createElement("input");
+  pageSelector.setAttribute("type", "number");
+  pageSelector.setAttribute("min", 0);
+  pageSelector.setAttribute("max", pageCount - 1);
+
+  pageSelector.value = currentPage;
+
+  form.appendChild(submitButton);
+  form.appendChild(pageSelector);
+  form.onsubmit = (e) => {
+    e.preventDefault();
+    if (pageSelector.value <= 1) {
+      setCurrentPage(1);
+    } else if (pageSelector.value >= pageCount - 1) {
+      setCurrentPage(pageCount);
+    } else {
+      setCurrentPage(pageSelector.value);
+    }
+    console.log(pageSelector.value);
+  };
+
+  paginationNumbers.appendChild(form);
+};
+
 const appendPageNumber = (index) => {
   const pageNumber = document.createElement("button");
   pageNumber.className = "pagination-number";
@@ -120,7 +151,9 @@ const setCurrentPage = (pageNum) => {
 //check if necessary with defer script
 
 window.addEventListener("load", () => {
-  getPaginationNumbers();
+  // getPaginationNumbers();
+  createPageSelector();
+
   setCurrentPage(1);
 
   previousButton.addEventListener("click", () => {

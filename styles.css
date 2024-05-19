@@ -7,6 +7,12 @@ body {
   justify-content: center;
 }
 
+.pageSelector {
+  margin-top: 10px;
+  margin-bottom: 10px;
+  min-height: 90px;
+}
+
 .pagination-number,
 .pagination-button {
   font-size: 1.1rem;
